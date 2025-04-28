@@ -22,7 +22,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-             const { owner, repo } = context.repo;
+            const { owner, repo } = context.repo;
             const run_id = context.payload.workflow_run.id;
             const workflow_name = context.payload.workflow_run.name;
             const run_url = context.payload.workflow_run.html_url;
