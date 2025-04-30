@@ -51,7 +51,7 @@ jobs:
             echo "Build result: ${{ needs.build_firmware.result }}"
       - name: echo the post_results if condition value
         run: |
-            echo "Post results condition: ${{ always() && needs.build_firmware.result != 'skipped' }}"
+            echo "Post results condition: ${{ needs.build_firmware.result != 'skipped' }}"
       - uses: actions/checkout@v4
       - name: Comment with build result
         uses: actions/github-script@v7
