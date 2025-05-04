@@ -135,8 +135,9 @@ defmodule ExNVRWeb.Components.Sidebar do
   end
 
   defp groups do
-    [
+    base_groups = [
       [
+
         %{label: "Dashboard", icon: "hero-tv-solid", href: ~p"/dashboard"},
         %{label: "Recordings", icon: "hero-film-solid", href: ~p"/recordings"},
         %{
@@ -187,6 +188,18 @@ defmodule ExNVRWeb.Components.Sidebar do
         }
       ]
     ]
+
+    plugin_entries = ExNVRWeb.PluginRegistry.menu_entries()
+
+    Enum.reduce(plugin_entries, base_groups, fn entry, groups ->
+      insert_menu_entry(groups, entry)
+    end)
+  end
+
+  defp insert_menu_entry(groups, %{position: [group: group_index, index: insert_index]} = entry) do
+    List.update_at(groups, group_index, fn group ->
+      List.insert_at(group, insert_index, Map.delete(entry, :position))
+    end)
   end
 
   defp is_active?(nil, _), do: false
@@ -199,10 +212,10 @@ defmodule ExNVRWeb.Components.Sidebar do
     end)
   end
 
-  defp link_classes(true = _active), do: "flex items-center p-2 text-white rounded-lg bg-opacity-10 dark:bg-opacity-10 bg-blue-600 dark:bg-blue-500 text-blue-600 dark:text-blue-500"
+  defp link_classes(true = _active), do: "flex items-center p-2 text-white rounded-lg bg-opacity-10 dark:bg-opacity-10 bg-primary-600 dark:bg-primary-500 text-primary-600 dark:text-primary-500"
   defp link_classes(false = _active), do: "flex items-center p-2 text-white rounded-lg hover:bg-gray-500 dark:hover:bg-gray-700"
 
-  defp icon_classes(true = _active), do: "w-6 h-6 text-blue-600 dark:text-blue-500"
+  defp icon_classes(true = _active), do: "w-6 h-6 text-primary-600 dark:text-primary-500"
   defp icon_classes(false = _active), do: "w-6 h-6 text-gray-400 dark:text-gray-400"
 
   defp menu_classes(true = _active), do: "py-2 space-y-2 px-2"

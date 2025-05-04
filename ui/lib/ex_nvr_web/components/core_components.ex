@@ -115,7 +115,7 @@ defmodule ExNVRWeb.CoreComponents do
       class={[
         "fixed top-2 right-5 w-80 sm:w-96 z-50 rounded-lg p-3 ring-1",
         @kind == :info &&
-          "text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400",
+          "text-sm text-primary-800 rounded-lg bg-primary-50 dark:bg-gray-800 dark:text-primary-400",
         @kind == :error &&
           "text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
       ]}
@@ -221,7 +221,7 @@ defmodule ExNVRWeb.CoreComponents do
       class={[
         "phx-submit-loading:opacity-75 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900",
         "focus:outline-none bg-white rounded-md border border-gray-200 hover:bg-gray-100",
-        "hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700",
+        "hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700",
         "dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700",
         @class
       ]}
@@ -293,8 +293,8 @@ defmodule ExNVRWeb.CoreComponents do
           value="true"
           checked={@checked}
           class={[
-            "rounded text-black border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300",
-            "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600",
+            "rounded text-black border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300",
+            "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600",
             "dark:ring-offset-gray-800 dark:focus:ring-offset-gray-80"
           ]}
           {@rest}
@@ -315,8 +315,8 @@ defmodule ExNVRWeb.CoreComponents do
           id={@id}
           name={@name}
           class={[
-            "rounded text-zinc-900 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300",
-            "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600",
+            "rounded text-zinc-900 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300",
+            "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600",
             "dark:ring-offset-gray-800 dark:focus:ring-offset-gray-80"
           ]}
           value={@value}
@@ -345,8 +345,8 @@ defmodule ExNVRWeb.CoreComponents do
                 id={@id}
                 name={@name}
                 class={[
-                  "rounded text-zinc-900 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300",
-                  "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600",
+                  "rounded text-zinc-900 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300",
+                  "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600",
                   "dark:ring-offset-gray-800 dark:focus:ring-offset-gray-80"
                 ]}
                 value={elem(option, 0)}
@@ -373,8 +373,8 @@ defmodule ExNVRWeb.CoreComponents do
           id={@id}
           name={@name}
           class={[
-            "rounded text-zinc-900 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300",
-            "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600",
+            "rounded text-zinc-900 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300",
+            "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600",
             "dark:ring-offset-gray-800 dark:focus:ring-offset-gray-80 w-60"
           ]}
           value={@value}
@@ -396,7 +396,7 @@ defmodule ExNVRWeb.CoreComponents do
         name={@name}
         class={[
           "mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-sm focus:border-zinc-400 focus:ring-0 text-sm",
-          "dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          "dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
         ]}
         multiple={@multiple}
         {@rest}
@@ -421,7 +421,7 @@ defmodule ExNVRWeb.CoreComponents do
           "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
           "min-h-[6rem] border-zinc-300 focus:border-zinc-400 dark:bg-gray-700",
           "dark:border-gray-600 dark:placeholder-gray-400 dark:text-white",
-          "dark:focus:ring-blue-500 dark:focus:border-blue-500",
+          "dark:focus:ring-primary-500 dark:focus:border-primary-500",
           @errors != [] && "border-rose-400 focus:border-rose-400"
         ]}
         {@rest}
@@ -445,7 +445,7 @@ defmodule ExNVRWeb.CoreComponents do
           "mt-1 block w-full rounded-lg text-black focus:ring-0 sm:text-sm sm:leading-6",
           "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
           "border-zinc-300 focus:border-zinc-400 dark:bg-gray-700 dark:border-gray-600",
-          "dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
+          "dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500",
           "text-black",
           @errors != [] && "border-rose-400 focus:border-rose-400"
         ]}
@@ -543,7 +543,7 @@ defmodule ExNVRWeb.CoreComponents do
     ~H"""
     <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
       <table class="w-[40rem] mt-4 text-sm text-left sm:w-full text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-black uppercase bg-blue-400 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-black uppercase bg-primary-400 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th :for={col <- @col} class="px-6 py-3">{col[:label]}</th>
             <th class="relative p-0 pb-4"><span class="sr-only">{gettext("Actions")}</span></th>
@@ -737,7 +737,7 @@ defmodule ExNVRWeb.CoreComponents do
         ] ++
           if @current_page == @page,
             do: [
-              "z-10 pointer-events-none text-blue-600 bg-blue-50 border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:bg-gray-700 dark:text-white"
+              "z-10 pointer-events-none text-primary-600 bg-primary-50 border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:bg-gray-700 dark:text-white"
             ],
             else: [
               "text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -885,4 +885,6 @@ defmodule ExNVRWeb.CoreComponents do
   defdelegate tabs(assigns), to: Components.Tabs
 
   defdelegate icon(assigns), to: Components.Icon
+
+  defdelegate logo(assigns), to: ExNVRWeb.Components.Logo
 end

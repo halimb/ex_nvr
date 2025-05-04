@@ -1,5 +1,5 @@
 defmodule ExNVRWeb.Components.Tabs do
-  use Phoenix.LiveComponent
+  use ExNVRWeb, :live_component
 
   attr :id, :string, required: true
   attr :active_tab, :string, default: nil
@@ -7,7 +7,7 @@ defmodule ExNVRWeb.Components.Tabs do
 
   attr :active_class, :string,
     default:
-      "bg-blue-600 dark:bg-blue-500 text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500"
+      "bg-primary-600 dark:bg-primary-500 text-primary-600 border-primary-600 dark:text-primary-500 dark:border-primary-500"
 
   attr :inactive_class, :string,
     default: "text-gray-900 text-white dark:text-white hover:bg-gray-500 dark:hover:bg-gray-700"

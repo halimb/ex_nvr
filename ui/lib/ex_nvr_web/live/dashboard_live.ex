@@ -22,7 +22,7 @@ defmodule ExNVRWeb.DashboardLive do
     <div class="bg-gray-300 e-w-full dark:bg-gray-800">
       <div :if={@devices == []} class="grid tracking-wide text-lg text-center dark:text-gray-200">
         You have no devices, you can create one
-        <span><.link href={~p"/devices"} class="ml-2 dark:text-blue-600">here</.link></span>
+        <span><.link href={~p"/devices"} class="ml-2 dark:text-primary-600">here</.link></span>
       </div>
       <div :if={@devices != []} class="e-h-full">
         <.vue
@@ -65,7 +65,7 @@ defmodule ExNVRWeb.DashboardLive do
                   required
                 />
               </div>
-              <div class="mr-4 w-full p-2 rounded">
+              <div class="mr-4 w-full p-2 myclass bg-myclass text-myclass rounded bg-test-500">
                 <.input
                   field={@footage_form[:start_date]}
                   id="footage_start_date"
@@ -101,7 +101,7 @@ defmodule ExNVRWeb.DashboardLive do
 
               <div class="mr-4 w-full p-2 rounded flex justify-center space-x-4">
                 <.button
-                  class="bg-blue-500 text-white px-4 py-2 rounded flex items-center"
+                  class="bg-primary-500 text-white px-4 py-2 rounded flex items-center"
                   phx-disable-with="Downloading..."
                 >
                   Download

@@ -65,7 +65,7 @@ defmodule ExNVRWeb.UserListLive do
             </ul>
           </div>
           <.modal id={"delete-modal-#{user.id}"}>
-            <div class="bg-blue-300 p-4 rounded-lg text-center dark:bg-gray-800 dark:border-gray-700">
+            <div class="bg-primary-300 p-4 rounded-lg text-center dark:bg-gray-800 dark:border-gray-700">
               <p class="text-l text-black dark:text-white font-bold mb-4">
                 {"Are you sure you want to delete the User: '#{user.email}'"}
               </p>

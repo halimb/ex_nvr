@@ -93,7 +93,7 @@ defmodule ExNVRWeb.DeviceListLive do
         </:action>
         <:action :let={device}>
           <.modal id={"delete-device-modal-#{device.id}"}>
-            <div class="bg-blue-300 dark:bg-gray-800 m-8 rounded">
+            <div class="bg-primary-300 dark:bg-gray-800 m-8 rounded">
               <h2 class="text-xl text-black dark:text-white font-bold mb-4">
                 Are you sure you want to delete this device? <br />
               </h2>
