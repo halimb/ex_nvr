@@ -103,13 +103,13 @@ jobs:
 
       - name: Echo path
         env:
-          PLUGIN_PATHS: ${{ github.workspace }}/nerves_fw/priv/ui_plugin
+          PLUGIN_PATHS: ${{ github.workspace }}/nerves_fw/lib/ui
         run: echo "$PLUGIN_PATHS"
         working-directory: ./ui
-        
+
       - name: Build assets
         env:
-          PLUGIN_PATHS: ${{ github.workspace }}/nerves_fw/priv/ui_plugin
+          PLUGIN_PATHS: ${{ github.workspace }}/nerves_fw/lib/ui
         run: mix do deps.get, cmd --cd assets npm install, assets.deploy
         working-directory: ./ui
 
@@ -120,6 +120,8 @@ jobs:
 #        run: mix sentry.package_source_code
 
       - name: Create firmware
+        env:
+          PLUGIN_PATHS: ${{ github.workspace }}/nerves_fw/lib/ui
         run: |
           if [ -n "$VERSION" ]; then
             sed -i "s/@version \"[^\"]*\"/@version \"${VERSION}\"/" mix.exs
