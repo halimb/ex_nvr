@@ -116,8 +116,8 @@ jobs:
       - name: Download firmware dependencies
         run: mix do deps.get, firmware.deps
 
-      - name: Package source code for sentry
-        run: mix sentry.package_source_code
+#      - name: Package source code for sentry
+#        run: mix sentry.package_source_code
 
       - name: Create firmware
         run: |
