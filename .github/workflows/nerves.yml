@@ -103,7 +103,7 @@ jobs:
 
       - name: Build assets
         env:
-          PLUGIN_PATHS: ${{ github.workspace }}/nerves_fw/lib/ui
+          PLUGIN_PATHS: ${{ github.workspace }}/nerves_fw/priv/ui
         run: mix do deps.get, cmd --cd assets npm install, assets.deploy
         working-directory: ./ui
 
@@ -115,7 +115,7 @@ jobs:
 
       - name: Create firmware
         env:
-          PLUGIN_PATHS: ${{ github.workspace }}/nerves_fw/lib/ui
+          PLUGIN_PATHS: ${{ github.workspace }}/nerves_fw/priv/ui
         run: |
           if [ -n "$VERSION" ]; then
             sed -i "s/@version \"[^\"]*\"/@version \"${VERSION}\"/" mix.exs
