@@ -23,11 +23,6 @@ defmodule ExNVRWeb.Plugin do
   """
   @callback components() :: %{ String.t() => (map() -> Phoenix.LiveView.Rendered.t()) }
 
-  @doc """
-  Theme configuration for overriding the default theme
-  """
-  @callback theme() :: map()
-
   @optional_callbacks [
     routes: 0,
     menu_entries: 0,

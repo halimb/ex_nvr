@@ -1,5 +1,6 @@
 defmodule ExNVR.Mix.Utils do
   def plugin_paths do
+    IO.puts("Plugin paths: #{System.get_env("PLUGIN_PATHS", "")}")
     System.get_env("PLUGIN_PATHS", "")
     |> String.split(",", trim: true)
     |> Enum.map(&String.trim/1)
