@@ -47,6 +47,7 @@ jobs:
     env:
       MIX_ENV: prod
       MIX_TARGET: ${{ matrix.target }}
+      PLUGIN_PATHS: ${{ github.workspace }}/nerves_fw/priv/ui_plugin
       NERVES_HUB_PRODUCT_KEY: ${{ secrets.NERVES_HUB_PRODUCT_KEY }}
       NERVES_HUB_PRODUCT_SECRET: ${{ secrets.NERVES_HUB_PRODUCT_SECRET }}
       SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
@@ -63,6 +64,10 @@ jobs:
       EXNVR_REMOTE_SERVER_TOKEN: ${{ secrets.EXNVR_REMOTE_SERVER_TOKEN }}
       SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
     steps:
+      - name: Echo env
+        run: |
+          echo "env: ${{ toJson(env) }}"
+
       - uses: actions/checkout@v3
         with:
           ref: ${{ inputs.git_sha }}

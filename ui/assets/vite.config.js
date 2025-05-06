@@ -1,15 +1,21 @@
 import path from "path"
+import { fileURLToPath } from 'url'
 import { defineConfig } from "vite"
 
 import vue from "@vitejs/plugin-vue"
 import liveVuePlugin from "live_vue/vitePlugin"
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const rootDir = path.join(__dirname, '..')
+const assetsDir = path.join(rootDir, 'assets')
+const outputDir = path.join(rootDir, 'priv', 'static', 'assets')
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   const isDev = command !== "build"
 
   return {
-    base: isDev ? undefined : "/assets",
+    base: isDev ? undefined : assetsDir,
     publicDir: "static",
     plugins: [vue(), liveVuePlugin()],
     worker: {
@@ -36,7 +42,7 @@ export default defineConfig(({ command }) => {
     build: {
       commonjsOptions: { transformMixedEsModules: true },
       target: "es2020",
-      outDir: "../priv/static/assets", // emit assets to priv/static/assets
+      outDir: outputDir, // emit assets to priv/static/assets
       emptyOutDir: true,
       sourcemap: isDev, // enable source map in dev build
       manifest: false, // do not generate manifest.json
