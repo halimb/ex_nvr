@@ -23,9 +23,15 @@ defmodule ExNVRWeb.Plugin do
   """
   @callback components() :: %{ String.t() => (map() -> Phoenix.LiveView.Rendered.t()) }
 
+  @doc """
+  List of additional assets to include in the main HTML
+  """
+  @callback assets() :: [{:js | :css, :head | :body, String.t()}]
+
   @optional_callbacks [
     routes: 0,
     menu_entries: 0,
-    components: 0
+    components: 0,
+    assets: 0
   ]
 end

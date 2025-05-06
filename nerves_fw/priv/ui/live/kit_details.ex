@@ -39,6 +39,19 @@ defmodule ExNVRWeb.KitDetailsLive do
   end
 
   @impl true
+  def handle_event("run_code", %{"code" => code}, socket) do
+    result =
+      try do
+        {val, _} = Code.eval_string(code, [], __ENV__)
+        inspect(val)
+      rescue
+        e -> "Error: " <> Exception.message(e)
+      end
+
+    {:noreply, push_event(socket, "evaluation_result", %{result: result})}
+  end
+
+  @impl true
   def render(assigns) do
     ~H"""
 
@@ -85,29 +98,39 @@ defmodule ExNVRWeb.KitDetailsLive do
       <div class="p-4">
         <h2 class="text-xl font-bold mb-4">Code Runner</h2>
 
-        <.simple_form for={@form} id="code-runner-form" phx-submit="run">
-          <.input
-            field={@form[:code]}
-            type="textarea"
-            rows="10"
-            label="Elixir Code"
-            class="bg-gray-700 border-none text-white"
-          />
-
-          <:actions>
-            <.button class="w-full bg-slate-700">
-              Run
-            </.button>
-          </:actions>
-        </.simple_form>
-
-        <div :if={@result != ""} class="mt-6">
-          <h3 class="font-semibold">Result:</h3>
-          <pre class="bg-gray-700 p-3 rounded text-sm whitespace-pre-wrap"><%= @result %></pre>
+        <div id="editor" phx-hook="CodeEditor" class="w-full space-y-4">
+          <div id="editor-container" class="editor-container relative h-64 rounded border border-slate-700" phx-update="ignore"></div>
+          <button class="run bg-slate-700 px-4 py-2 rounded hover:bg-slate-600">Run</button>
+          <div>
+            <h3 class="font-semibold mb-1">Result:</h3>
+            <pre class="result bg-zinc-800 p-3 rounded text-sm whitespace-pre-wrap text-white"></pre>
+          </div>
         </div>
+
       </div>
     </div>
     """
+  end
+
+  def handle_event("autocomplete", %{"prefix" => prefix}, socket) do
+    suggestions = autocomplete(prefix)
+
+    push_event(socket, "autocomplete_response", %{
+      prefix: prefix,
+      suggestions: Enum.map(suggestions, fn word ->
+        %{label: word, type: "keyword"}
+      end)
+    })
+
+    {:noreply, socket}
+  end
+
+  defp autocomplete(prefix) do
+    case IEx.Autocomplete.expand(to_charlist(prefix)) do
+      {:yes, completion, _} -> [to_string(completion)]
+      {:multiple, list, _} -> Enum.map(list, &to_string/1)
+      _ -> []
+    end
   end
 
   defp format_bytes(bytes) when is_integer(bytes) do

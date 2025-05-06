@@ -26,7 +26,8 @@ defmodule ExNVR.Mix.Utils do
 
       [
         ~r"#{escaped}/(controllers|live|components)/.*(ex|heex)$",
-        ~r"#{escaped}/static/.*(js|css|png|jpeg|jpg|gif|svg)$"
+        ~r"#{escaped}/assets/.*(js|css|png|jpeg|jpg|gif|svg)$",
+        ~r"#{escaped}/assets/js/.*(js|css|png|jpeg|jpg|gif|svg)$"
       ]
     end)
   end

@@ -1,7 +1,11 @@
 defmodule EvercamPlugin do
   @behaviour ExNVRWeb.Plugin
 
-  def routes(),  do: [{"/kit", ExNVRWeb.KitDetailsLive, :index}]
+  def routes()  do
+    [
+      {"/kit", ExNVRWeb.KitDetailsLive, :index}
+    ]
+  end
 
   def menu_entries(), do: [
     %{
@@ -16,5 +20,11 @@ defmodule EvercamPlugin do
     %{
       logo: &ExNVRWeb.Components.Evercam.logo/1
     }
+  end
+
+  def assets() do
+    [
+      {:js, :head, "code-editor.js"}
+    ]
   end
 end
