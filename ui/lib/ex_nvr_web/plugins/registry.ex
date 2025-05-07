@@ -10,18 +10,40 @@ defmodule ExNVRWeb.PluginRegistry do
 
   def components(), do: collect(:components, %{})
 
-  def theme(), do: collect(:theme, %{})
-
   def render_component(name, assigns, fallback)  do
     components()
     |> Map.get_lazy(name, fn -> fallback end)
     |> then(& &1.(assigns))
   end
 
-  defp collect(collection, default) do
+  def collect(collection, default) do
     plugins()
     |> Enum.map(&lookup(&1, collection, default))
     |> merge(default)
+  end
+
+  def collect_assets(type, position) do
+    collect(:assets, [])
+    |> Enum.filter(fn {t, p, _path} -> t == type and p == position end)
+  end
+
+  def assets_paths(type, position, :prod) do
+    collect_assets(type, position)
+    |> prefix_paths("/assets")
+  end
+
+  def assets_paths(:js, position, :dev) do
+    collect_assets(:js, position)
+    |> prefix_paths("/plugins/js")
+  end
+
+  def assets_paths(:css, position, :dev) do
+    collect_assets(:css, position)
+    |> prefix_paths("/plugins/css")
+  end
+
+  defp prefix_paths(paths, prefix) do
+    Enum.map(paths, fn {t, p, path} -> "#{prefix}/#{path}" end)
   end
 
   defp lookup(plugin, collection, default) do

@@ -39,6 +39,10 @@ config :ex_nvr, ExNVRWeb.Endpoint,
     patterns: ExNVR.Mix.Utils.watch_patterns()
   ]
 
+
+config :ex_nvr,
+  plugins: [EvercamPlugin]
+
 # Enable dev routes for dashboard and mailbox
 config :ex_nvr, dev_routes: true
 
