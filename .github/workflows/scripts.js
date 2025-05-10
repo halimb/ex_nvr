@@ -5,6 +5,7 @@ module.exports = {
   postComment,
   handleNervesBuildCommand,
   handleNervesBuildResult,
+  handleWorkflowFailure
 }
 
 async function handleNervesBuildCommand({ github, context, core }) {
@@ -101,11 +102,50 @@ async function validateVersion({ github, context, core, customVersion }) {
   }
 }
 
+async function handleWorkflowFailure({ github, context, core, workflowName, runId, runUrl }) {
+  try {
+    const prData = await getPrData({ github, context })
+    const failedJobsInfo = await getFailedJobsInfo({ github, context, runId })
+
+    await postComment({
+      github,
+      context,
+      prNumber: prData.number,
+      body: `
+        ❌ Workflow **${workflowName}** failed. [Click here to check the logs](${runUrl})
+        
+        ${failedJobsInfo}.
+      `
+    })
+  } catch(e) {
+    core.warning(`Error posting workflow failure comment: ${e.message}`)
+  }
+}
+
+async function getFailedJobsInfo({ github, context, runId }) {
+  try {
+    const { owner, repo } = context.repo
+    const { data: jobs } = await github.rest.actions.listJobsForWorkflowRun({
+      owner,
+      repo,
+      run_id: runId
+    })
+
+    const failedJobs = jobs.jobs.filter(job => job.conclusion === 'failure')
+    const failedJobsMdList = failedJobs.map(job => `- **${job.name}**: [View logs](${job.html_url})`).join('\n')
+    return failedJobs.length > 0 ? `### Failed Jobs\n${failedJobsMdList}` : ""
+  } catch (error) {
+    core.warning(`Error fetching job details: ${error.message}`)
+    return ""
+  }
+}
+
 async function getPrData({ github, context }) {
   const prUrl = context.payload.issue.pull_request.url
   const pr = await github.request(`GET ${prUrl}`)
 
   return {
+    number: pr.data.number,
     branch: pr.data.head.ref,
     sha: pr.data.head.sha,
   }
@@ -131,14 +171,14 @@ async function generateCustomVersion({ branch, sha, core }) {
   }
 }
 
-async function postComment({ github, context, body }) {
+async function postComment({ github, context, body, prNumber }) {
   const { owner, repo } = context.repo
   const { number } = context.issue || context.payload.pull_request
 
   await github.rest.issues.createComment({
     owner,
     repo,
-    issue_number: number,
+    issue_number: prNumber || number,
     body: dedent(body),
   })
 }
